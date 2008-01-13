@@ -1,18 +1,19 @@
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
-Version:	2.2.4.1
+Version:	2.2.5
 Release:	1
 License:	CPL v0.5
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/opencryptoki/%{name}-%{version}.tar.bz2
-# Source0-md5:	d26093eb733ed9052b16dc33b445778a
+Source0:	http://dl.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
+# Source0-md5:	95ffac22e82df38738ef4ab0df48fb41
+Patch0:		%{name}-ica.patch
 URL:		http://opencryptoki.sourceforge.net/
 BuildRequires:	aep1000-devel
 BuildRequires:	bcm5820-devel
 BuildRequires:	libica-devel
 BuildRequires:	openssl-devel
-BuildRequires:	trousers-devel
+BuildRequires:	trousers-devel >= 0.2.9
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -63,6 +64,7 @@ Statyczna biblioteka openCryptoki.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure \
@@ -101,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/opencryptoki
 %{_libdir}/opencryptoki/methods
 %{_libdir}/pkcs11/methods
+%{_mandir}/man1/pkcs11_startup.1*
+%{_mandir}/man1/pkcsconf.1*
+%{_mandir}/man5/pk_config_data.5*
+%{_mandir}/man7/opencryptoki.7*
+%{_mandir}/man8/pkcsslotd.8*
 %ifnarch s390 s390x
 %attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_sw.so*
 %attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_SW.so

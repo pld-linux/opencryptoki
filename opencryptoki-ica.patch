@@ -1,0 +1,53 @@
+--- opencryptoki-2.2.5/usr/lib/pkcs11/ica_stdll/ica_specific.c.orig	2007-09-06 17:40:13.000000000 +0200
++++ opencryptoki-2.2.5/usr/lib/pkcs11/ica_stdll/ica_specific.c	2008-01-13 19:31:06.979358339 +0100
+@@ -1101,27 +1101,27 @@
+ CK_RV
+ token_specific_sha_init( DIGEST_CONTEXT * ctx )
+ {
+-	oc_sha1_ctx	*sc;
++	struct oc_sha_ctx *sc;
+ 
+ 	/* For the C_DigestInit, C_Digest case, we may have already 
+ 	 * created ctx->context... - KEY 
+ 	 */
+ 	if(ctx->context) {
+-		sc = (oc_sha1_ctx *)ctx->context;
++		sc = (struct oc_sha_ctx *)ctx->context;
+ 		if(sc->dev_ctx)
+ 			free(sc->dev_ctx);
+ 		free(ctx->context);
+ 	}
+ 	
+ 	/* The caller will check to see if ctx->context == NULL */
+-	ctx->context_len = sizeof(oc_sha1_ctx);
+-	ctx->context = malloc(sizeof(oc_sha1_ctx));
++	ctx->context_len = sizeof(struct oc_sha_ctx);
++	ctx->context = malloc(sizeof(struct oc_sha_ctx));
+ 
+ 	if(ctx->context == NULL) 
+ 		return CKR_HOST_MEMORY;
+ 	
+ 	memset(ctx->context, 0, ctx->context_len);
+-	sc = (oc_sha1_ctx *)ctx->context;
++	sc = (struct oc_sha_ctx *)ctx->context;
+ 	sc->hash_len = SHA1_HASH_SIZE;
+ 	sc->message_part = SHA_MSG_PART_ONLY;
+ 	/* This is libica's LENGTH_SHA_CONTEXT */
+@@ -1142,7 +1142,7 @@
+ 				CK_ULONG	in_data_len )
+ {
+ 	unsigned int	rc, i, fill_size = 0;
+-	oc_sha1_ctx	*oc_sha_ctx = (oc_sha1_ctx *)ctx->context;
++	struct oc_sha_ctx *oc_sha_ctx = (struct oc_sha_ctx *)ctx->context;
+ 	SHA_CONTEXT	*ica_sha_ctx = (SHA_CONTEXT *)oc_sha_ctx->dev_ctx;
+ 	
+ 	if( !ctx )
+@@ -1316,7 +1316,7 @@
+ 				CK_ULONG	*out_data_len )
+ {
+ 	CK_RV rv = CKR_OK;
+-	oc_sha1_ctx *oc_sha_ctx = (oc_sha1_ctx *)ctx->context;
++	struct oc_sha_ctx *oc_sha_ctx = (struct oc_sha_ctx *)ctx->context;
+ 	int copy_len = MIN(*out_data_len, LENGTH_SHA_HASH);
+ 	
+ 	if( !ctx )

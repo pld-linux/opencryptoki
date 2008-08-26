@@ -1,12 +1,12 @@
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
-Version:	2.2.5
+Version:	2.2.6
 Release:	1
 License:	CPL v0.5
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
-# Source0-md5:	95ffac22e82df38738ef4ab0df48fb41
+# Source0-md5:	755f2f605298094205ec1263ba3c3c16
 Patch0:		%{name}-ica.patch
 URL:		http://opencryptoki.sourceforge.net/
 BuildRequires:	aep1000-devel

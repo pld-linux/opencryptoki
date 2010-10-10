@@ -1,0 +1,11 @@
+--- opencryptoki-2.3.2/configure.in.orig	2010-10-09 21:43:05.827741882 +0200
++++ opencryptoki-2.3.2/configure.in	2010-10-09 23:12:37.735734339 +0200
+@@ -597,7 +597,7 @@
+ else
+ 	enable_bcomtok=no
+ fi
+-AM_CONDITIONAL([ENABLE_BCOMTOK], [test "x$enable_bcom" = "xyes"])
++AM_CONDITIONAL([ENABLE_BCOMTOK], [test "x$enable_bcomtok" = "xyes"])
+ 
+ dnl --- enable_crtok
+ if test "x$enable_crtok" = "xyes"; then

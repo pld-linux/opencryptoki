@@ -41,7 +41,7 @@ Group:		Libraries
 The openCryptoki library implements the PKCS#11 version 2.11:
 Cryptographic Token Interface Standard (Cryptoki).
 
-%description -l pl.UTF-8
+%description libs -l pl.UTF-8
 Biblioteka openCryptoki implementuje standard PKCS#11 w wersji 2.11:
 Cryptographic Token Interface Standard (Cryptoki).
 

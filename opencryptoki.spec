@@ -34,7 +34,7 @@ Cryptographic Token Interface Standard (Cryptoki).
 
 %package libs
 Summary:	openCryptoki library
-Summary(pl.UTF_8):	Biblioteka openCryptoki
+Summary(pl.UTF-8):	Biblioteka openCryptoki
 Group:		Libraries
 
 %description libs

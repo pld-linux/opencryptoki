@@ -1,13 +1,11 @@
---- opencryptoki-2.3.2/configure.in.orig	2010-07-29 14:28:41.000000000 +0200
-+++ opencryptoki-2.3.2/configure.in	2010-10-09 21:42:12.111734339 +0200
-@@ -628,9 +628,7 @@
- AM_CONDITIONAL([ENABLE_PKCSCCA_MIGRATE], [test "x$enable_pkcscca_migrate" = "xyes"])
+--- opencryptoki-2.4/configure.in.orig	2011-05-18 00:27:00.000000000 +0200
++++ opencryptoki-2.4/configure.in	2011-06-19 20:21:06.992291554 +0200
+@@ -624,7 +624,7 @@
  
+ CFLAGS="$CFLAGS -DPKCS64 -D_XOPEN_SOURCE=500"
  
--CFLAGS="$CFLAGS $DEBUG_CFLAGS -DPKCS64 -D_XOPEN_SOURCE=500"
--
 -CFLAGS+=' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\"'
-+CFLAGS="$CFLAGS $DEBUG_CFLAGS -DPKCS64 -D_XOPEN_SOURCE=500 "'-DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\"'
++CFLAGS="$CFLAGS"' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\"'
  
  # At this point, CFLAGS is set to something sensible
  AC_PROG_CC

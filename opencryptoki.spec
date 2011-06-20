@@ -1,15 +1,16 @@
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
-Version:	2.3.2
+Version:	2.4
 Release:	1
 License:	CPL v0.5
 Group:		Applications/System
-Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.bz2
-# Source0-md5:	eada4c72c2563f2c9a1b44fc6d1856db
+Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
+# Source0-md5:	1c834a4c7380a352319cb47b99fc6157
 Patch0:		%{name}-ica.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-bcom.patch
+Patch3:		%{name}-aep.patch
 URL:		http://opencryptoki.sourceforge.net/
 BuildRequires:	aep1000-devel
 BuildRequires:	autoconf
@@ -23,6 +24,8 @@ BuildRequires:	openssl-devel
 BuildRequires:	trousers-devel >= 0.2.9
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		skip_post_check_so	.*%{_libdir}/opencryptoki/stdll/libpkcs11_.*\.so.*
 
 %description
 The openCryptoki package implements the PKCS#11 version 2.11:
@@ -63,6 +66,7 @@ Pliki nagłówkowe biblioteki openCryptoki.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -102,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYRIGHTS FAQ LICENSE README TODO doc/*
+%doc AUTHORS COPYRIGHTS ChangeLog FAQ LICENSE README TODO doc/*
 %attr(755,root,root) %{_sbindir}/pkcs11_startup
 %attr(755,root,root) %{_sbindir}/pkcsconf
 %attr(755,root,root) %{_sbindir}/pkcs_slot

@@ -1,11 +1,11 @@
---- opencryptoki-2.4/configure.in.orig	2011-05-18 00:27:00.000000000 +0200
-+++ opencryptoki-2.4/configure.in	2011-06-19 20:21:06.992291554 +0200
-@@ -624,7 +624,7 @@
+--- opencryptoki/configure.in.orig	2013-12-30 15:35:25.853178364 +0100
++++ opencryptoki/configure.in	2013-12-30 15:36:03.333176738 +0100
+@@ -721,7 +721,7 @@
  
  CFLAGS="$CFLAGS -DPKCS64 -D_XOPEN_SOURCE=500"
  
--CFLAGS+=' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\"'
-+CFLAGS="$CFLAGS"' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\"'
+-CFLAGS+=' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\" -DLOCKDIR_PATH=\"$(lockdir)\" -DOCK_CONFDIR=\"$(sysconfdir)/opencryptoki\"' 
++CFLAGS="$CFLAGS"' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\" -DLOCKDIR_PATH=\"$(lockdir)\" -DOCK_CONFDIR=\"$(sysconfdir)/opencryptoki\"' 
  
  # At this point, CFLAGS is set to something sensible
  AC_PROG_CC

@@ -1,0 +1,16 @@
+--- opencryptoki/misc/Makefile.am.orig	2013-07-15 19:25:40.000000000 +0200
++++ opencryptoki/misc/Makefile.am	2013-12-31 10:09:43.383706004 +0100
+@@ -10,7 +10,7 @@
+ pkcsslotd.service: pkcsslotd.service.in
+ 	@SED@ -e s!\@sbindir\@!"@sbindir@"!g < $< > $@-t
+ 	mv $@-t $@
+-else
++endif
+ initddir = $(sysconfdir)/rc.d/init.d
+ initd_SCRIPTS = pkcsslotd
+ 
+@@ -20,4 +20,3 @@
+ 	@CHMOD@ a+x $@-t
+ 	mv $@-t $@
+ endif
+-endif

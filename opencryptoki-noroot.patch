@@ -1,0 +1,49 @@
+--- opencryptoki/usr/lib/pkcs11/soft_stdll/Makefile.am.orig	2013-07-15 19:25:41.000000000 +0200
++++ opencryptoki/usr/lib/pkcs11/soft_stdll/Makefile.am	2013-12-31 08:45:27.230584799 +0100
+@@ -54,12 +54,9 @@
+ 	cd $(DESTDIR)$(libdir)/opencryptoki/stdll && \
+ 		ln -sf libpkcs11_sw.so PKCS11_SW.so
+ 	$(MKDIR_P) $(DESTDIR)$(localstatedir)/lib/opencryptoki/swtok/TOK_OBJ
+-	$(CHGRP) pkcs11 $(DESTDIR)$(localstatedir)/lib/opencryptoki/swtok/TOK_OBJ
+-	$(CHGRP) pkcs11 $(DESTDIR)$(localstatedir)/lib/opencryptoki/swtok
+ 	$(CHMOD) 0770 $(DESTDIR)$(localstatedir)/lib/opencryptoki/swtok/TOK_OBJ
+ 	$(CHMOD) 0770 $(DESTDIR)$(localstatedir)/lib/opencryptoki/swtok
+ 	$(MKDIR_P) $(DESTDIR)$(lockdir)/swtok
+-	$(CHGRP) pkcs11 $(DESTDIR)$(lockdir)/swtok
+ 	$(CHMOD) 0770 $(DESTDIR)$(lockdir)/swtok
+ 
+ uninstall-hook:
+--- opencryptoki/usr/lib/pkcs11/tpm_stdll/Makefile.am.orig	2013-07-15 19:25:41.000000000 +0200
++++ opencryptoki/usr/lib/pkcs11/tpm_stdll/Makefile.am	2013-12-31 08:50:00.680573324 +0100
+@@ -69,10 +69,8 @@
+ 	cd $(DESTDIR)$(libdir)/opencryptoki/stdll && \
+ 		ln -sf libpkcs11_tpm.so PKCS11_TPM.so
+ 	$(MKDIR_P) $(DESTDIR)$(localstatedir)/lib/opencryptoki/tpm
+-	$(CHGRP) pkcs11 $(DESTDIR)$(localstatedir)/lib/opencryptoki/tpm
+ 	$(CHMOD) 0770 $(DESTDIR)$(localstatedir)/lib/opencryptoki/tpm
+ 	$(MKDIR_P) $(DESTDIR)$(lockdir)/tpm
+-	$(CHGRP) pkcs11 $(DESTDIR)$(lockdir)/tpm 
+ 	$(CHMOD) 0770 $(DESTDIR)$(lockdir)/tpm
+ 
+ uninstall-hook:
+--- opencryptoki/usr/lib/pkcs11/icsf_stdll/Makefile.am.orig	2013-07-15 19:25:41.000000000 +0200
++++ opencryptoki/usr/lib/pkcs11/icsf_stdll/Makefile.am	2013-12-31 09:20:57.927162073 +0100
+@@ -76,10 +76,8 @@
+ 	cd $(DESTDIR)$(libdir)/opencryptoki/stdll && \
+ 		ln -sf libpkcs11_icsf.so PKCS11_ICSF.so
+ 	$(MKDIR_P) $(DESTDIR)$(localstatedir)/lib/opencryptoki/icsf
+-	$(CHGRP) pkcs11 $(DESTDIR)$(localstatedir)/lib/opencryptoki/icsf
+ 	$(CHMOD) 0770 $(DESTDIR)$(localstatedir)/lib/opencryptoki/icsf
+ 	$(MKDIR_P) $(DESTDIR)$(lockdir)/icsf
+-	$(CHGRP) pkcs11 $(DESTDIR)$(lockdir)/icsf 
+ 	$(CHMOD) 0770 $(DESTDIR)$(lockdir)/icsf
+ 
+ uninstall-hook:
+--- opencryptoki/usr/Makefile.am.orig	2013-07-15 19:25:40.000000000 +0200
++++ opencryptoki/usr/Makefile.am	2013-12-31 09:26:05.323815816 +0100
+@@ -6,5 +6,4 @@
+ 
+ install-data-hook:
+ 	$(MKDIR_P) $(DESTDIR)$(lockdir)
+-	$(CHGRP) pkcs11 $(DESTDIR)$(lockdir)
+ 	$(CHMOD) 0770 $(DESTDIR)$(lockdir)

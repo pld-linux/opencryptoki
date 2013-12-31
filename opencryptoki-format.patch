@@ -1,0 +1,11 @@
+--- opencryptoki/usr/sbin/pkcsslotd/log.c.orig	2013-07-15 19:25:41.000000000 +0200
++++ opencryptoki/usr/sbin/pkcsslotd/log.c	2013-12-30 23:09:12.875369087 +0100
+@@ -823,7 +823,7 @@
+ 
+   /* Always log to syslog, if we're using it */
+   if ( pInfo->UseSyslog ) {
+-    syslog(pInfo->LogLevel,  Buffer);
++    syslog(pInfo->LogLevel,  "%s", Buffer);
+   }
+ 
+   return TRUE;

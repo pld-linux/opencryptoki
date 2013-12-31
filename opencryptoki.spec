@@ -3,6 +3,7 @@
 %bcond_without	aep	# AEP Crypto Accelerator support
 %bcond_without	bcom	# Broadcom Crypto Accelerator support
 %bcond_with	corrent	# Corrent Crypto Accelerator support [BR: libsocketarmor + typhoon.h]
+%bcond_with	pkcscca	# CCA token key migration tool [BR: xcryptolinz, s390x arch]
 #
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
@@ -33,6 +34,11 @@ BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel
 BuildRequires:	rpmbuild(macros) >= 1.647
 BuildRequires:	trousers-devel >= 0.2.9
+%if %{with pkcscca}
+# from http://www-03.ibm.com/security/cryptocards/pcixcc/ordersoftware.shtml :
+# http://www-03.ibm.com/security/cryptocards/dwnlds/xcryptolinzGA-3.28-rc08.s390x.rpm
+BuildRequires:	xcryptolinzGA
+%endif
 Requires(post,preun):	/sbin/chkconfig
 Requires(post,preun,postun):	systemd-units >= 38
 Requires(postun):	/usr/sbin/groupdel
@@ -230,10 +236,10 @@ urządzeń TPM (Trusted Platform Module) w stosie openCryptoki.
 	--disable-ccatok \
 	--disable-icatok \
 %endif
+	%{!?with_pkcsccs:--disable-pkcscca-migrate} \
 	--enable-tpmtok \
 	--with-systemd=%{systemdunitdir}
-# icctok (PCICC) not supported on Linux (only AIX, Windows, z/OS, OS/390)
-# pkcscca_migrate requires xcryptolinz (IBM proprietary, zSeries only)
+# icctok (PCICC) not supported on Linux (only AIX, Windows, OS/2)
 
 %{__make}
 
@@ -329,7 +335,11 @@ fi
 %ifarch s390 s390x
 %files module-ccatok
 %defattr(644,root,root,755)
-%doc doc/{README-IBM_CCA_users,README.cca_stdll}
+%doc doc/{README-IBM_CCA_users,README.cca_stdll} %{?with_pkcscca:doc/README.pkcscca_migrate}
+%if %{with pkcscca}
+%attr(755,root,root) %{_sbindir}/pkcscca_migrate
+%attr(755,root,root) %{_sbindir}/pkcscca_migrate.sh
+%endif
 %attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_cca.so*
 %attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_CCA.so
 %endif

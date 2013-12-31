@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	aep	# AEP Crypto Accelerator support
 %bcond_without	bcom	# Broadcom Crypto Accelerator support
-%bcond_with	corrent	# Corrent Crypto Accelerator support [BR: libsocketarmor + typhoon.h]
+%bcond_with	corrent	# Corrent Crypto Accelerator support [BR: libsocketarmor/typhoon.h; probably no longer available]
 %bcond_with	pkcscca	# CCA token key migration tool [BR: xcryptolinz, s390x arch]
 #
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11

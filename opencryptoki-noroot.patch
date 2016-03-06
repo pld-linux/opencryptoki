@@ -39,11 +39,11 @@
  	$(CHMOD) 0770 $(DESTDIR)$(lockdir)/icsf
  
  uninstall-hook:
---- opencryptoki/usr/Makefile.am.orig	2013-07-15 19:25:40.000000000 +0200
-+++ opencryptoki/usr/Makefile.am	2013-12-31 09:26:05.323815816 +0100
+--- opencryptoki/usr/Makefile.am.orig	2016-03-05 22:26:13.779273281 +0100
++++ opencryptoki/usr/Makefile.am	2016-03-05 23:06:04.015839640 +0100
 @@ -6,5 +6,4 @@
  
  install-data-hook:
- 	$(MKDIR_P) $(DESTDIR)$(lockdir)
--	$(CHGRP) pkcs11 $(DESTDIR)$(lockdir)
- 	$(CHMOD) 0770 $(DESTDIR)$(lockdir)
+ 	$(MKDIR_P) $(DESTDIR)$(lockdir) $(DESTDIR)$(logdir)
+-	$(CHGRP) pkcs11 $(DESTDIR)$(lockdir) $(DESTDIR)$(logdir)
+ 	$(CHMOD) 0770 $(DESTDIR)$(lockdir) $(DESTDIR)$(logdir)

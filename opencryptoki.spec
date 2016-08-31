@@ -1,12 +1,12 @@
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
-Version:	3.4.1
+Version:	3.5
 Release:	1
 License:	CPL v0.5
 Group:		Applications/System
-Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-v%{version}.tgz
-# Source0-md5:	100d587be68f299b1f196aba0e6e0b76
+Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tgz
+# Source0-md5:	d792bd179f6d98453a91a28cec438dfe
 Patch0:		%{name}-sh.patch
 Patch1:		%{name}-noroot.patch
 Patch2:		%{name}-notonlysystemd.patch

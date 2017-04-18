@@ -1,17 +1,17 @@
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
-Version:	3.5
+Version:	3.6.2
 Release:	1
 License:	CPL v0.5
 Group:		Applications/System
-Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tgz
-# Source0-md5:	d792bd179f6d98453a91a28cec438dfe
+Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
+# Source0-md5:	ae8185ee673505dd4779d9b5bed086f2
 Patch0:		%{name}-sh.patch
 Patch1:		%{name}-noroot.patch
 Patch2:		%{name}-notonlysystemd.patch
 URL:		http://opencryptoki.sourceforge.net/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6
 %ifarch s390 s390x
 BuildRequires:	libica-devel >= 2.0
@@ -154,7 +154,7 @@ urządzeń TPM (Trusted Platform Module) w stosie openCryptoki.
 
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1

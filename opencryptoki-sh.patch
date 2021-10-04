@@ -1,8 +1,9 @@
---- opencryptoki/configure.ac.orig	2016-03-05 21:11:02.889462586 +0100
-+++ opencryptoki/configure.ac	2016-03-05 21:12:55.766124521 +0100
-@@ -556,7 +556,7 @@
+diff -urNp -x '*.orig' opencryptoki-3.6.2.org/configure.ac opencryptoki-3.6.2/configure.ac
+--- opencryptoki-3.6.2.org/configure.ac	2017-02-17 13:33:35.000000000 +0100
++++ opencryptoki-3.6.2/configure.ac	2021-10-04 22:38:36.599697493 +0200
+@@ -556,7 +556,7 @@ AM_CONDITIONAL([ENABLE_PKCSEP11_MIGRATE]
  
- CFLAGS="$CFLAGS -DPKCS64 -D_XOPEN_SOURCE=500 -Wall -Wno-pointer-sign"
+ CFLAGS="$CFLAGS -DPKCS64 -D_XOPEN_SOURCE=600 -Wall -Wno-pointer-sign"
  
 -CFLAGS+=' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\" -DLOCKDIR_PATH=\"$(lockdir)\" -DOCK_CONFDIR=\"$(sysconfdir)/opencryptoki\" -DOCK_LOGDIR=\"$(logdir)\"'
 +CFLAGS="$CFLAGS"' -DCONFIG_PATH=\"$(localstatedir)/lib/opencryptoki\" -DSBIN_PATH=\"$(sbindir)\" -DLIB_PATH=\"$(libdir)\" -DLOCKDIR_PATH=\"$(lockdir)\" -DOCK_CONFDIR=\"$(sysconfdir)/opencryptoki\" -DOCK_LOGDIR=\"$(logdir)\"'

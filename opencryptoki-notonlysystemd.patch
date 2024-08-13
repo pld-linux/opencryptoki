@@ -1,15 +1,15 @@
---- opencryptoki/misc/Makefile.am.orig	2013-07-15 19:25:40.000000000 +0200
-+++ opencryptoki/misc/Makefile.am	2013-12-31 10:09:43.383706004 +0100
-@@ -10,7 +10,7 @@
- pkcsslotd.service: pkcsslotd.service.in
- 	@SED@ -e s!\@sbindir\@!"@sbindir@"!g < $< > $@-t
- 	mv $@-t $@
+--- opencryptoki-3.10.0/misc/Makefile.am.orig	2018-06-06 21:55:55.000000000 +0200
++++ opencryptoki-3.10.0/misc/Makefile.am	2024-08-13 20:56:17.618959604 +0200
+@@ -48,7 +48,7 @@ install-data-hook:
+ uninstall-hook:
+ 	if test -e $(DESTDIR)/usr/lib/tmpfiles.d/opencryptoki.conf; then \
+ 		rm -f $(DESTDIR)/usr/lib/tmpfiles.d/opencryptoki.conf; fi
 -else
 +endif
  initddir = $(sysconfdir)/rc.d/init.d
  initd_SCRIPTS = pkcsslotd
  
-@@ -20,4 +20,3 @@
+@@ -58,4 +58,3 @@ pkcsslotd: pkcsslotd.in
  	@CHMOD@ a+x $@-t
  	mv $@-t $@
  endif

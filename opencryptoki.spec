@@ -1,16 +1,16 @@
 Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
-Version:	3.6.2
-Release:	3
+Version:	3.10.0
+Release:	1
 License:	CPL v0.5
 Group:		Applications/System
-Source0:	http://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
-# Source0-md5:	ae8185ee673505dd4779d9b5bed086f2
+Source0:	https://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
+# Source0-md5:	7e857a57a7082e7c1728e7acb9fe8c79
 Patch0:		%{name}-sh.patch
 Patch1:		%{name}-noroot.patch
 Patch2:		%{name}-notonlysystemd.patch
-URL:		http://opencryptoki.sourceforge.net/
+URL:		https://opencryptoki.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6
 %ifarch s390 s390x
@@ -30,9 +30,9 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	rc-scripts
 Requires:	systemd-units >= 38
 Provides:	group(pkcs11)
-Obsoletes:	opencrytoki-module-aeptok
-Obsoletes:	opencrytoki-module-crtok
-Obsoletes:	opencrytoki-module-bcomtok
+Obsoletes:	opencrytoki-module-aeptok < 3.4
+Obsoletes:	opencrytoki-module-crtok < 3.4
+Obsoletes:	opencrytoki-module-bcomtok < 3.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		skip_post_check_so	.*%{_libdir}/opencryptoki/stdll/libpkcs11_.*\.so.*
@@ -64,7 +64,7 @@ Summary:	Header files for openCryptoki library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki openCryptoki
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Obsoletes:	opencryptoki-static
+Obsoletes:	opencryptoki-static < 2.3
 
 %description devel
 Header files for openCryptoki library.
@@ -152,7 +152,6 @@ This package brings the necessary libraries and files to support TPM
 Ten pakiet dostarcza biblioteki oraz pliki potrzebne do obsługi
 urządzeń TPM (Trusted Platform Module) w stosie openCryptoki.
 
-
 %prep
 %setup -q
 %patch0 -p1
@@ -187,9 +186,6 @@ rm -rf $RPM_BUILD_ROOT
 	initdir=/etc/rc.d/init.d
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/opencryptoki/stdll/*.la
-%ifnarch s390 s390x
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/{pkcscca,pkcsep11_migrate}.1
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -220,7 +216,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYRIGHTS ChangeLog FAQ LICENSE README TODO doc/{README.token_data,openCryptoki-HOWTO.pdf}
+%doc AUTHORS COPYRIGHTS ChangeLog FAQ LICENSE README.md doc/{README.token_data,opencryptoki-howto.md}
 %attr(755,root,root) %{_sbindir}/pkcsconf
 %attr(755,root,root) %{_sbindir}/pkcsicsf
 %attr(755,root,root) %{_sbindir}/pkcsslotd
@@ -232,6 +228,7 @@ fi
 %{systemdunitdir}/pkcsslotd.service
 %dir /var/lib/opencryptoki
 %attr(770,root,pkcs11) %dir /var/lock/opencryptoki
+%{systemdtmpfilesdir}/opencryptoki.conf
 %{_mandir}/man1/pkcsconf.1*
 %{_mandir}/man1/pkcsicsf.1*
 %{_mandir}/man5/opencryptoki.conf.5*

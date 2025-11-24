@@ -2,7 +2,7 @@ Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
 Version:	3.10.0
-Release:	2
+Release:	3
 License:	CPL v0.5
 Group:		Applications/System
 Source0:	https://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
@@ -164,6 +164,7 @@ urządzeń TPM (Trusted Platform Module) w stosie openCryptoki.
 %{__autoconf}
 %{__automake}
 %configure \
+	CFLAGS="%{rpmcflags} -std=gnu17" \
 %ifarch s390 s390x
 	--enable-ccatok \
 	--enable-ep11tok \

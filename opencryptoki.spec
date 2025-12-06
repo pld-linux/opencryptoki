@@ -2,7 +2,7 @@ Summary:	An Implementation of PKCS#11 (Cryptoki) v2.11
 Summary(pl.UTF-8):	Implementacja PKCS#11 (Cryptoki) v2.11
 Name:		opencryptoki
 Version:	3.10.0
-Release:	3
+Release:	4
 License:	CPL v0.5
 Group:		Applications/System
 Source0:	https://downloads.sourceforge.net/opencryptoki/%{name}-%{version}.tar.gz
@@ -31,8 +31,8 @@ Requires:	rc-scripts
 Requires:	systemd-units >= 38
 Provides:	group(pkcs11)
 Obsoletes:	opencrytoki-module-aeptok < 3.4
-Obsoletes:	opencrytoki-module-crtok < 3.4
 Obsoletes:	opencrytoki-module-bcomtok < 3.4
+Obsoletes:	opencrytoki-module-crtok < 3.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		skip_post_check_so	.*%{_libdir}/opencryptoki/stdll/libpkcs11_.*\.so.*
@@ -163,8 +163,10 @@ urządzeń TPM (Trusted Platform Module) w stosie openCryptoki.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
+# -Wno-incompatible-pointer-types because sizeof(int) == sizeof(long) in 32bit archs
+# and this is causing build to fail because code uses long everywhere.
 %configure \
-	CFLAGS="%{rpmcflags} -std=gnu17" \
+	CFLAGS="%{rpmcflags} -std=gnu17 -Wno-incompatible-pointer-types" \
 %ifarch s390 s390x
 	--enable-ccatok \
 	--enable-ep11tok \
@@ -240,14 +242,14 @@ fi
 %defattr(644,root,root,755)
 /etc/ld.so.conf.d/opencryptoki-*.conf
 %dir %{_libdir}/opencryptoki
-%attr(755,root,root) %{_libdir}/opencryptoki/libopencryptoki.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/opencryptoki/libopencryptoki.so.0
+%{_libdir}/opencryptoki/libopencryptoki.so.*.*.*
+%ghost %{_libdir}/opencryptoki/libopencryptoki.so.0
 # symlinked as pkcs11 module, so it's here not in -devel
-%attr(755,root,root) %{_libdir}/opencryptoki/libopencryptoki.so
-%attr(755,root,root) %{_libdir}/opencryptoki/PKCS11_API.so
+%{_libdir}/opencryptoki/libopencryptoki.so
+%{_libdir}/opencryptoki/PKCS11_API.so
 %dir %{_libdir}/opencryptoki/stdll
-%attr(755,root,root) %{_libdir}/pkcs11/libopencryptoki.so
-%attr(755,root,root) %{_libdir}/pkcs11/PKCS11_API.so
+%{_libdir}/pkcs11/libopencryptoki.so
+%{_libdir}/pkcs11/PKCS11_API.so
 %{_libdir}/pkcs11/stdll
 
 %files devel
@@ -261,8 +263,8 @@ fi
 %doc doc/{README-IBM_CCA_users,README.cca_stdll,README.pkcscca_migrate}
 %attr(755,root,root) %{_sbindir}/pkcscca_migrate
 %attr(755,root,root) %{_sbindir}/pkcscca_migrate.sh
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_cca.so*
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_CCA.so
+%{_libdir}/opencryptoki/stdll/libpkcs11_cca.so*
+%{_libdir}/opencryptoki/stdll/PKCS11_CCA.so
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/ccatok
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/ccatok/TOK_OBJ
 %attr(770,root,pkcs11) %dir /var/lock/opencryptoki/ccatok
@@ -274,8 +276,8 @@ fi
 %defattr(644,root,root,755)
 %doc doc/README.ep11_stdll
 %attr(755,root,root) %{_sbindir}/pkcsep11_migrate
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_ep11.so*
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_EP11.so
+%{_libdir}/opencryptoki/stdll/libpkcs11_ep11.so*
+%{_libdir}/opencryptoki/stdll/PKCS11_EP11.so
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/opencryptoki/ep11tok.conf
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/ep11tok
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/ep11tok/TOK_OBJ
@@ -286,8 +288,8 @@ fi
 %ifarch s390 s390x
 %files module-icatok
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_ica.so*
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_ICA.so
+%{_libdir}/opencryptoki/stdll/libpkcs11_ica.so*
+%{_libdir}/opencryptoki/stdll/PKCS11_ICA.so
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/lite
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/lite/TOK_OBJ
 %attr(770,root,pkcs11) %dir /var/lock/opencryptoki/lite
@@ -296,15 +298,15 @@ fi
 %files module-icsftok
 %defattr(644,root,root,755)
 %doc doc/README.icsf_stdll
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_icsf.so*
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_ICSF.so
+%{_libdir}/opencryptoki/stdll/libpkcs11_icsf.so*
+%{_libdir}/opencryptoki/stdll/PKCS11_ICSF.so
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/icsf
 %attr(770,root,pkcs11) %dir /var/lock/opencryptoki/icsf
 
 %files module-swtok
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_sw.so*
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_SW.so
+%{_libdir}/opencryptoki/stdll/libpkcs11_sw.so*
+%{_libdir}/opencryptoki/stdll/PKCS11_SW.so
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/swtok
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/swtok/TOK_OBJ
 %attr(770,root,pkcs11) %dir /var/lock/opencryptoki/swtok
@@ -312,7 +314,7 @@ fi
 %files module-tpmtok
 %defattr(644,root,root,755)
 %doc doc/README.tpm_stdll
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/libpkcs11_tpm.so*
-%attr(755,root,root) %{_libdir}/opencryptoki/stdll/PKCS11_TPM.so
+%{_libdir}/opencryptoki/stdll/libpkcs11_tpm.so*
+%{_libdir}/opencryptoki/stdll/PKCS11_TPM.so
 %attr(770,root,pkcs11) %dir /var/lib/opencryptoki/tpm
 %attr(770,root,pkcs11) %dir /var/lock/opencryptoki/tpm
